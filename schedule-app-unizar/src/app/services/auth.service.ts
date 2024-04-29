@@ -1,20 +1,18 @@
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
-
-  private loggedInPersonId: string | null = null;
+  private loggedInPersonId!: number;
 
   constructor() {}
 
-  setLoggedInPersonId(personId: string): void {
+  setLoggedInPersonId(personId: number): void {
     this.loggedInPersonId = personId;
   }
 
-  getLoggedInPersonId(): string | null {
+  getLoggedInPersonId(): number {
     return this.loggedInPersonId;
   }
-
 }
