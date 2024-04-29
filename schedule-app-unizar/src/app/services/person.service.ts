@@ -12,7 +12,7 @@ export class PersonService {
     private http: HttpClient
   ) {}
 
-  checkPersonId(personId: string): Observable<any> {
+  checkPersonId(personId: number): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/person/checkType`, { personId });
   }
 

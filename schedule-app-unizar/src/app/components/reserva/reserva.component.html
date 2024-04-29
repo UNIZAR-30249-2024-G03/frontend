@@ -1,0 +1,39 @@
+<div class="container mt-lg-4">
+
+    <div class="d-flex">
+        <div class="flex-grow-1">
+            <h1 class="page-title">Reservations</h1>
+            <p class="page-description">You can manage reservations in this screen.</p>
+            <hr>
+        </div>
+
+        <button mat-flat-button color="primary" style="margin-left: 16px; min-height: 55px;" (click)="openDialog()">Add
+            Reservation</button>
+    </div>
+
+
+    <div class="table-responsive mt-lg-4">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Reservation ID</th>
+                    <th>Person Name</th>
+                    <th>Space ID</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let reserva of reservas">
+                    <td>{{ reserva.id }}</td>
+                    <td>{{ reserva.person.username }}</td>
+                    <td>{{ reserva.espacio.id }}</td>
+                    <td>{{ reserva.infoReserva.fechaInicio | date: 'medium' }}</td>
+                    <td>{{ reserva.infoReserva.fechaFinal | date: 'medium' }}</td>
+                    <td>{{ reserva.infoReserva.descripcion || 'N/A' }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

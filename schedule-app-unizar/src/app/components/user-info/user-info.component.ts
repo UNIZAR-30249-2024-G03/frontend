@@ -31,13 +31,7 @@ export class UserInfoComponent implements OnInit {
     );
   }
 
-  getLoggedUserInfo() {
-    const loggedInPersonId = this.authService.getLoggedInPersonId();
-    if (loggedInPersonId) {
-      const id = parseInt(loggedInPersonId, 10);
-      this.getUserInfo(id);
-    } else {
-      console.error('Logged in person id is null');
-    }
+  getLoggedUserInfo(): void {
+    this.authService.getLoggedInPersonId();
   }
 }

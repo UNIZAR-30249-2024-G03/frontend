@@ -9,12 +9,12 @@ import { AuthService } from '../../services/auth.service';
   styleUrl: './input-form.component.scss',
 })
 export class InputFormComponent {
-  personId!: string;
+  personId!: number;
 
   constructor(
     private personService: PersonService,
     private snackbarService: SnackbarService,
-    private authService: AuthService // AuthService'ı bileşene enjekte et
+    private authService: AuthService
   ) {}
 
   submit() {

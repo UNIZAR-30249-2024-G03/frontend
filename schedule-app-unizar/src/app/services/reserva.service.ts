@@ -16,13 +16,15 @@ export class ReservaService {
     return this.http.get<Reserva[]>(`${this.apiUrl}?idUsuario=${userId}`);
   }
 
-  addReserva(reservaData: any): Observable<Reserva> {
+  addReserva(reservaData: Reserva): Observable<Reserva> {
     return this.http.post<Reserva>(`${this.apiUrl}`, reservaData);
   }
 
-  deleteReserva(reservaId: string, userId: number): Observable<any> {
-    return this.http.delete<any>(
-      `${this.apiUrl}/${reservaId}?idUsuario=${userId}`
-    );
+  updateReserva(reservaData: Reserva): Observable<Reserva> {
+    return this.http.put<Reserva>(`${this.apiUrl}/${reservaData.id}`, reservaData);
+  }
+
+  deleteReserva(reservaId: string): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}/${reservaId}`);
   }
 }
