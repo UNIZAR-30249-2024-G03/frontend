@@ -1,1 +1,7 @@
-<p>input-form works!</p>
+<div class="container">
+    <div class="form-group">
+        <label for="personId">Person ID:</label>
+        <input type="text" id="personId" name="personId" class="form-control" [(ngModel)]="personId">
+    </div>
+    <button class="btn btn-primary" (click)="submit()">Submit</button>
+</div>
