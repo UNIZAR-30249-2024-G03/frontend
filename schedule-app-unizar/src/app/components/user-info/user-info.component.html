@@ -1,21 +1,48 @@
-<div class="user-info">
-    <h2>Kullanıcı Bilgileri</h2>
-    <!-- Kullanıcı bilgileri buraya gelecek -->
-    <div class="user-details">
-        <div>
-            <label>User Id:</label>
-            <span>{{ user.id }}</span>
+<div class="container mt-4">
+    <div class="d-flex">
+        <div class="flex-grow-1">
+            <h1 class="display-4">User Info</h1>
+            <p class="lead">You can manage user information on this screen.</p>
+            <hr>
         </div>
-        <div>
-            <label>Kullanıcı Adı:</label>
-            <span>{{ user.username }}</span>
-        </div>
-        <div>
-            <label>E-posta:</label>
-            <span>{{ user.email }}</span>
-        </div>
-        <!-- Diğer kullanıcı bilgileri buraya eklenmeli -->
+
+        <button mat-flat-button color="primary" style="margin-left: 16px; min-height: 55px;" (click)="editUser()">Edit
+            User</button>
     </div>
-    <h3>Rol ve Departman Değiştirme</h3>
-    <!-- Rol ve departman değiştirme arayüzü buraya gelecek -->
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">User Details</h5>
+                </div>
+                <div class="card-body">
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label">User Name:</label>
+                        <div class="col-sm-8">
+                            <p class="form-control-plaintext">{{ user.username }}</p>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label">E-mail:</label>
+                        <div class="col-sm-8">
+                            <p class="form-control-plaintext">{{ user.email }}</p>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label">Roles:</label>
+                        <div class="col-sm-8">
+                            <p class="form-control-plaintext">{{ user.roles.join(', ') }}</p>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label">Department:</label>
+                        <div class="col-sm-8">
+                            <p class="form-control-plaintext">{{ user.departamentoAdscrito }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

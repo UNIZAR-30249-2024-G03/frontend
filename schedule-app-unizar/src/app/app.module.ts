@@ -23,7 +23,6 @@ import { MatNativeDateModule } from '@angular/material/core';
     AppComponent,
     InputFormComponent,
     InteractiveMapComponent,
-    UserInfoComponent,
     SpaceInfoComponent,
     SearchBarComponent,
     HeaderComponent,

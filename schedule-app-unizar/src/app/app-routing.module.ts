@@ -12,12 +12,18 @@ const routes: Routes = [
   {
     path: 'user-info',
     component: UserInfoComponent,
+    loadChildren: () =>
+      import('./components/user-info/user-info.module').then(
+        (m) => m.UserInfoModule
+      ),
   },
   {
     path: 'reserva',
     component: ReservaComponent,
     loadChildren: () =>
-      import('./components/reserva/reserva.module').then((m) => m.ReservaModule),
+      import('./components/reserva/reserva.module').then(
+        (m) => m.ReservaModule
+      ),
   },
 ];
 
