@@ -28,12 +28,11 @@ export class ReservaModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.reservationForm = this.fb.group({
-      reservationId: ['', Validators.required], // Form kontrolörlerini tanımladık
-      personName: ['', Validators.required],
-      spaceId: ['', Validators.required],
+      personName: ['', [Validators.required, Validators.maxLength(255)]],
+      spaceNumber: ['', [Validators.required, Validators.maxLength(20)]],
       startDate: ['', Validators.required],
       endDate: ['', Validators.required],
-      description: [''],
+      description: ['', [Validators.maxLength(255)]],
     });
   }
 
