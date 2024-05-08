@@ -8,7 +8,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { InputFormComponent } from './components/input-form/input-form.component';
 import { InteractiveMapComponent } from './components/interactive-map/interactive-map.component';
-import { UserInfoComponent } from './components/user-info/user-info.component';
 import { SpaceInfoComponent } from './components/space-info/space-info.component';
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
 import { FormsModule } from '@angular/forms';
@@ -23,7 +22,6 @@ import { MatNativeDateModule } from '@angular/material/core';
     AppComponent,
     InputFormComponent,
     InteractiveMapComponent,
-    UserInfoComponent,
     SpaceInfoComponent,
     SearchBarComponent,
     HeaderComponent,

@@ -14,8 +14,8 @@
         </mat-form-field>
 
         <mat-form-field class="example-full-width">
-            <mat-label>Space ID</mat-label>
-            <input matInput formControlName="spaceId" placeholder="Ex. Space1">
+            <mat-label>Space Number</mat-label>
+            <input matInput formControlName="spaceNumber" placeholder="Ex. Space1">
         </mat-form-field>
 
         <mat-form-field class="example-full-width">
@@ -43,7 +43,7 @@
 
     <mat-dialog-actions align="end">
         <button mat-button color="warn" (click)="closeDialog()">Cancel</button>
-        <button mat-flat-button color="primary" type="submit" [disabled]="!reservationForm.invalid || showSpinner">Add
+        <button mat-flat-button color="primary" type="submit" [disabled]="reservationForm.invalid || showSpinner">Add
             Reservation</button>
     </mat-dialog-actions>
 </form>

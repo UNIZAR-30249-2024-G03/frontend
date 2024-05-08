@@ -1,7 +1,16 @@
 <div class="container">
-    <div class="form-group">
-        <label for="personId">Person ID:</label>
-        <input type="text" id="personId" name="personId" class="form-control" [(ngModel)]="personId">
+    <div class="row justify-content-center align-items-center" style="height: 100vh;">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">User ID</h5>
+                    <div class="form-group">
+                        <label for="personId">Enter User ID:</label>
+                        <input type="text" id="personId" name="personId" class="form-control" [(ngModel)]="personId">
+                    </div>
+                    <button class="btn btn-primary mt-3" (click)="submit()">Submit</button>
+                </div>
+            </div>
+        </div>
     </div>
-    <button class="btn btn-primary" (click)="submit()">Submit</button>
 </div>
