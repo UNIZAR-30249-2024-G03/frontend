@@ -16,6 +16,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { HeaderComponent } from './components/header/header.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { OverlayComponent } from './components/map/overlay/overlay.component';
+import { MapModule } from './components/map/map.module';
+import { ReservaModule } from './components/reserva/reserva.module';
 
 @NgModule({
   declarations: [
@@ -25,6 +28,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     SpaceInfoComponent,
     SearchBarComponent,
     HeaderComponent,
+    OverlayComponent,
   ],
   imports: [
     BrowserModule,
@@ -33,6 +37,8 @@ import { MatNativeDateModule } from '@angular/material/core';
     HttpClientModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MapModule,
+    ReservaModule,
   ],
   providers: [
     {

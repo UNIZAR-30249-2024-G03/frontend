@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { InputFormComponent } from './components/input-form/input-form.component';
 import { UserInfoComponent } from './components/user-info/user-info.component';
 import { ReservaComponent } from './components/reserva/reserva.component';
+import { MapComponent } from './components/map/map.component';
 
 const routes: Routes = [
   {
@@ -24,6 +25,12 @@ const routes: Routes = [
       import('./components/reserva/reserva.module').then(
         (m) => m.ReservaModule
       ),
+  },
+  {
+    path: 'map',
+    component: MapComponent,
+    loadChildren: () =>
+      import('./components/map/map.module').then((m) => m.MapModule),
   },
 ];
 
