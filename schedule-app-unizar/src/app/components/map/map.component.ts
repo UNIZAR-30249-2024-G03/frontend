@@ -14,9 +14,11 @@ import { fromLonLat } from 'ol/proj';
 export class MapComponent implements OnInit {
   map!: Map;
   adaByronCoordinates: [number, number] = [-0.88845, 41.683213];
+  overlayContainer!: HTMLElement;
 
   ngOnInit(): void {
     this.initializeMap();
+    this.overlayContainer = document.getElementById('overlay-container')!;
   }
 
   private initializeMap(): void {
@@ -42,6 +44,15 @@ export class MapComponent implements OnInit {
     });
 
     this.map.addOverlay(overlay);
+
+    // Harita olaylarına abone ol
+    this.map.getView().on('change:resolution', () => {
+      if (this.map.getView().getZoom()! < 15) {
+        this.overlayContainer.classList.add('overlay-hidden');
+      } else {
+        this.overlayContainer.classList.remove('overlay-hidden');
+      }
+    });
   }
 
   private createOverlayElement(): HTMLElement {
