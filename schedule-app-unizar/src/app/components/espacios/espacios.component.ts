@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Espacio } from '../../models/espacio';
 import { EspaciosService } from '../../services/espacios.service';
+import { SelectionModel } from '@angular/cdk/collections'; // SelectionModel eklenmesi
 
 @Component({
   selector: 'app-espacios',
@@ -10,6 +11,7 @@ import { EspaciosService } from '../../services/espacios.service';
 })
 export class EspaciosComponent implements OnInit {
   displayedColumns: string[] = [
+    'select',
     'id',
     'tamano',
     'categoriaReserva',
@@ -21,6 +23,7 @@ export class EspaciosComponent implements OnInit {
   ];
   dataSource = new MatTableDataSource<Espacio>();
   filter: any = {};
+  selection = new SelectionModel<Espacio>(true, []);
 
   constructor(private espaciosService: EspaciosService) {}
 
@@ -40,5 +43,17 @@ export class EspaciosComponent implements OnInit {
       .subscribe((data) => {
         this.dataSource.data = data;
       });
+  }
+
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.data.length;
+    return numSelected === numRows;
+  }
+
+  masterToggle() {
+    this.isAllSelected()
+      ? this.selection.clear()
+      : this.dataSource.data.forEach((row) => this.selection.select(row));
   }
 }

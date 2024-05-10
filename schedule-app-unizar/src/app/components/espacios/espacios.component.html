@@ -1,47 +1,46 @@
-<div class="container mt-4 table">
-    <div class="row">
-        <div class="col-md-3">
-            <label for="id">Id:</label>
-            <input type="text" id="id" name="id" class="form-control" [(ngModel)]="filter.id">
+<div class="container mt-4 table-container">
+    <div class="filter">
+        <div class="row">
+            <div class="col-md-3">
+                <label for="id">Id:</label>
+                <input type="text" id="id" name="id" class="form-control" [(ngModel)]="filter.id">
+            </div>
+            <div class="col-md-3">
+                <label for="planta">Floor:</label>
+                <select id="planta" name="planta" class="form-control" [(ngModel)]="filter.planta">
+                    <option value="">All</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label for="numMaxOcupantes">Max occupants:</label>
+                <input type="number" id="numMaxOcupantes" name="numMaxOcupantes" class="form-control"
+                    [(ngModel)]="filter.numMaxOcupantes">
+            </div>
+            <div class="col-md-3">
+                <label for="categoriaReserva">User type:</label>
+                <select id="categoriaReserva" name="categoriaReserva" class="form-control"
+                    [(ngModel)]="filter.categoriaReserva">
+                    <option value="">All</option>
+                    <option value="AULA">AULA</option>
+                    <option value="SEMINARIO">SEMINARIO</option>
+                    <option value="LABORATORIO">LABORATORIO</option>
+                    <option value="DESPACHO">DESPACHO</option>
+                    <option value="SALA_COMUN">SALA_COMUN</option>
+                </select>
+            </div>
         </div>
-        <div class="col-md-3">
-            <label for="planta">Floor:</label>
-            <select id="planta" name="planta" class="form-control" [(ngModel)]="filter.planta">
-                <option value="">All</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-            </select>
-        </div>
-        <div class="col-md-3">
-            <label for="numMaxOcupantes">Max occupants:</label>
-            <input type="number" id="numMaxOcupantes" name="numMaxOcupantes" class="form-control"
-                [(ngModel)]="filter.numMaxOcupantes">
-        </div>
-        <div class="col-md-3">
-            <label for="categoriaReserva">User type:</label>
-            <select id="categoriaReserva" name="categoriaReserva" class="form-control"
-                [(ngModel)]="filter.categoriaReserva">
-                <option value="">All</option>
-                <option value="AULA">AULA</option>
-                <option value="SEMINARIO">SEMINARIO</option>
-                <option value="LABORATORIO">LABORATORIO</option>
-                <option value="DESPACHO">DESPACHO</option>
-                <option value="SALA_COMUN">SALA_COMUN</option>
-            </select>
-        </div>
-    </div>
-    <div class="row mt-2 justify-content-center">
-        <div class="col-md-4 mt-2">
-            <button class="btn btn-primary btn-block btn-lg col-md-12" (click)="applyFilters()">Filter</button>
+        <div class="row mt-2">
+            <div class="col-md-12 text-center">
+                <button class="btn btn-info filter-button col-md-3" (click)="applyFilters()">Filter</button>
+            </div>
         </div>
     </div>
 </div>
 
-<div class="container mt-4 table">
+<div class="container mt-4 table-container" style="padding-top: 15px;">
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-
-        <!--- Note that these columns can be defined in any order.
-              The actual rendered columns are set as a property on the row definition" -->
 
         <!-- Id Column -->
         <ng-container matColumnDef="id">
@@ -89,6 +88,17 @@
         <ng-container matColumnDef="capacidadMaxima">
             <th mat-header-cell *matHeaderCellDef> Capacidad Máxima </th>
             <td mat-cell *matCellDef="let element"> {{element.capacidadMaxima}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="select">
+            <th mat-header-cell *matHeaderCellDef>
+                <mat-checkbox (change)="masterToggle()" [checked]="isAllSelected()"
+                    [indeterminate]="selection.hasValue() && !isAllSelected()"></mat-checkbox>
+            </th>
+            <td mat-cell *matCellDef="let row">
+                <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
+                    [checked]="selection.isSelected(row)"></mat-checkbox>
+            </td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
