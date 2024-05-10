@@ -43,7 +43,7 @@ import { ReservaModule } from './components/reserva/reserva.module';
   providers: [
     {
       provide: 'apiUrl',
-      useValue: 'apiUrl is here...',
+      useValue: 'http://localhost:4040',
     },
     provideClientHydration(),
     provideAnimationsAsync(),
