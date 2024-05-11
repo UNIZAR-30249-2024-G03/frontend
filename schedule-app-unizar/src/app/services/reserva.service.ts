@@ -17,11 +17,14 @@ export class ReservaService {
   }
 
   addReserva(reservaData: Reserva): Observable<Reserva> {
-    return this.http.post<Reserva>(`${this.apiUrl}`, reservaData);
+    return this.http.post<Reserva>(`${this.apiUrl + '/reservas'}`, reservaData);
   }
 
   updateReserva(reservaData: Reserva): Observable<Reserva> {
-    return this.http.put<Reserva>(`${this.apiUrl}/${reservaData.id}`, reservaData);
+    return this.http.put<Reserva>(
+      `${this.apiUrl}/${reservaData.id}`,
+      reservaData
+    );
   }
 
   deleteReserva(reservaId: string): Observable<any> {

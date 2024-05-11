@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Espacio } from '../../models/espacio';
 import { EspaciosService } from '../../services/espacios.service';
-import { SelectionModel } from '@angular/cdk/collections'; // SelectionModel eklenmesi
+import { SelectionModel } from '@angular/cdk/collections';
+import { MatDialog } from '@angular/material/dialog';
+import { MakeReservationComponent } from './make-reservation/make-reservation.component';
 
 @Component({
   selector: 'app-espacios',
@@ -24,8 +26,13 @@ export class EspaciosComponent implements OnInit {
   dataSource = new MatTableDataSource<Espacio>();
   filter: any = {};
   selection = new SelectionModel<Espacio>(true, []);
+  selectedRows: Espacio[] = [];
+  reservationModalVisible = false;
 
-  constructor(private espaciosService: EspaciosService) {}
+  constructor(
+    private espaciosService: EspaciosService,
+    public dialog: MatDialog
+  ) {}
 
   ngOnInit(): void {
     this.loadEspacios();
@@ -55,5 +62,28 @@ export class EspaciosComponent implements OnInit {
     this.isAllSelected()
       ? this.selection.clear()
       : this.dataSource.data.forEach((row) => this.selection.select(row));
+  }
+
+  openDialog(): void {
+    // Seçilen satırların sayısı
+    const selectedRows = this.selection.selected.length;
+
+    // Her bir seçili satır için modal aç
+    this.selection.selected.forEach((row) => {
+      const dialogRef = this.dialog.open(MakeReservationComponent, {
+        width: '500px', // Modal genişliği
+        data: row, // Modal bileşenine seçili satırı iletebilirsiniz
+      });
+
+      dialogRef.afterClosed().subscribe((result) => {
+        console.log('The dialog was closed');
+        // Modal kapatıldığında yapılacak işlemler buraya yazılabilir
+      });
+    });
+  }
+
+  makeReservation(): void {
+    // Seçilen satırlar için rezervasyon yapma işlemi
+    // Burada yapılacak işlemler...
   }
 }
