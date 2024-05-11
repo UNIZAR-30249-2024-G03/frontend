@@ -65,25 +65,17 @@ export class EspaciosComponent implements OnInit {
   }
 
   openDialog(): void {
-    // Seçilen satırların sayısı
     const selectedRows = this.selection.selected.length;
 
-    // Her bir seçili satır için modal aç
     this.selection.selected.forEach((row) => {
       const dialogRef = this.dialog.open(MakeReservationComponent, {
-        width: '500px', // Modal genişliği
-        data: row, // Modal bileşenine seçili satırı iletebilirsiniz
+        width: '500px',
+        data: row,
       });
 
       dialogRef.afterClosed().subscribe((result) => {
         console.log('The dialog was closed');
-        // Modal kapatıldığında yapılacak işlemler buraya yazılabilir
       });
     });
-  }
-
-  makeReservation(): void {
-    // Seçilen satırlar için rezervasyon yapma işlemi
-    // Burada yapılacak işlemler...
   }
 }
