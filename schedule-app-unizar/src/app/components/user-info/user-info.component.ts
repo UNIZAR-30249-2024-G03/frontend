@@ -20,19 +20,11 @@ export class UserInfoComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.user = {
-      id: 1,
-      username: 'Julio de Sandro',
-      email: 'julio.32@gmail.com',
-      roles: ['role1', 'role2', 'role3'],
-      departamentoAdscrito: 'Coordinator',
-    };
-
     this.getLoggedUserInfo();
   }
 
   getUserInfo(id: number): void {
-    this.personService.getUserInfo(id).subscribe(
+    this.personService.getUserInfo(this.user.email).subscribe(
       (user) => {
         this.user = user;
       },
@@ -43,7 +35,7 @@ export class UserInfoComponent implements OnInit {
   }
 
   getLoggedUserInfo(): void {
-    this.authService.getLoggedInPersonId();
+    this.authService.getLoggedInPersonEmail();
   }
 
   editUser(): void {

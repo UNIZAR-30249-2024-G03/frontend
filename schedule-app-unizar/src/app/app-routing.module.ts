@@ -32,6 +32,20 @@ const routes: Routes = [
     loadChildren: () =>
       import('./components/map/map.module').then((m) => m.MapModule),
   },
+  {
+    path: '',
+    loadChildren: () =>
+      import('./components/espacios/espacios.module').then(
+        (m) => m.EspaciosModule
+      ),
+  },
+  {
+    path: '',
+    loadChildren: () =>
+      import(
+        './components/espacios/make-reservation/make-reservation.module'
+      ).then((m) => m.MakeReservationModule),
+  },
 ];
 
 @NgModule({

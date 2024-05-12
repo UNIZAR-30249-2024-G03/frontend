@@ -24,13 +24,10 @@ export class UserInfoModalComponent {
     private fb: FormBuilder
   ) {
     this.userForm = this.fb.group({
-      username: [
-        data.username,
-        [Validators.required, Validators.maxLength(255)],
-      ],
+      username: [data.nombre, [Validators.required, Validators.maxLength(255)]],
       email: [data.email, [Validators.required, Validators.maxLength(255)]],
       roles: [data.roles, Validators.required],
-      departamentoAdscrito: [data.departamentoAdscrito, Validators.required],
+      departamentoAdscrito: [data.departamento, Validators.required],
     });
   }
 
@@ -40,23 +37,23 @@ export class UserInfoModalComponent {
 
   submitEditUser(): void {
     this.showSpinner = true;
-    this.personService
-      .updateUser(this.userForm.value, this.authService.getLoggedInPersonId())
-      .subscribe(
-        (res: any) => {
-          this.getSuccess(res || 'User info updated successfully.');
-        },
-        (err: any) => {
-          this.getError(
-            err.message || 'An error occurred while updating user info.'
-          );
-        }
-      );
+    // this.personService
+    //   .updateUser(this.userForm.value, this.authService.getLoggedInPersonId())
+    //   .subscribe(
+    //     (res: any) => {
+    //       this.getSuccess(res || 'User info updated successfully.');
+    //     },
+    //     (err: any) => {
+    //       this.getError(
+    //         err.message || 'An error occurred while updating user info.'
+    //       );
+    //     }
+    //   );
   }
 
   getSuccess(message: string): void {
     this.snackbarService.createSnackBar('success', message);
-    this.personService.getUserInfo(this.authService.getLoggedInPersonId());
+    this.personService.getUserInfo(this.authService.getLoggedInPersonEmail());
     this.showSpinner = false;
     this.dialogRef.close(true);
   }

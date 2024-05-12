@@ -3,12 +3,23 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">User ID</h5>
+                    <h5 class="card-title">E-mail</h5>
                     <div class="form-group">
-                        <label for="personId">Enter User ID:</label>
-                        <input type="text" id="personId" name="personId" class="form-control" [(ngModel)]="personId">
+                        <label for="userEmail">Enter E-mail:</label>
+                        <input type="text" id="userEmail" name="userEmail" class="form-control"
+                            [(ngModel)]="user.email">
                     </div>
-                    <button class="btn btn-primary mt-3" (click)="submit()">Submit</button>
+
+                    <div class="form-group">
+                        <label for="department">Select Department:</label>
+                        <select id="department" name="department" class="form-control" [(ngModel)]="selectedDepartment">
+                            <option value="Informatica_e_Ingenieria_de_sistemas">Informática e Ingeniería de Sistemas
+                            </option>
+                            <option value="Ingenieria_electronica_y_comunicaciones">Ingeniería Electrónica y
+                                Comunicaciones</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-primary mt-3" (click)="login()">Login</button>
                 </div>
             </div>
         </div>
