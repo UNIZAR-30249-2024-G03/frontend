@@ -1,0 +1,49 @@
+<h2 mat-dialog-title>New Reservation</h2>
+
+<div>
+    <mat-progress-bar mode="query" *ngIf="showSpinner"></mat-progress-bar>
+    <br />
+</div>
+
+<form [formGroup]="reservationForm" (ngSubmit)="submitReservation()" action="">
+    <mat-dialog-content class="mat-typography">
+
+        <mat-form-field class="example-full-width">
+            <mat-label>Person Name</mat-label>
+            <input matInput formControlName="personName" placeholder="Ex. John Doe">
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+            <mat-label>Space Number</mat-label>
+            <input matInput formControlName="spaceNumber" placeholder="Ex. Space1">
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+            <mat-label>Start Date</mat-label>
+            <input matInput [matDatepicker]="startDatePicker" formControlName="startDate">
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+            <mat-datepicker #startDatePicker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+            <mat-label>End Date</mat-label>
+            <input matInput [matDatepicker]="endDatePicker" formControlName="endDate">
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+            <mat-datepicker #endDatePicker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+            <mat-label>Description</mat-label>
+            <textarea matInput formControlName="description" placeholder="Optional"></textarea>
+        </mat-form-field>
+
+    </mat-dialog-content>
+
+    <mat-dialog-actions align="end">
+        <button mat-button color="warn" (click)="closeDialog()">Cancel</button>
+        <button mat-flat-button color="primary" type="submit" [disabled]="reservationForm.invalid || showSpinner">Add
+            Reservation</button>
+    </mat-dialog-actions>
+</form>

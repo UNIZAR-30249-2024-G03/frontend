@@ -1,0 +1,34 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #333;
+    color: #fff;
+}
+
+.header__title {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.header__menu {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.header__menu-item {
+    display: inline-block;
+    margin-right: 20px;
+}
+
+.header__menu-item a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.header__menu-item a:hover {
+    text-decoration: underline;
+}
