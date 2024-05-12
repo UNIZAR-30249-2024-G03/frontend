@@ -27,7 +27,7 @@
             <tbody>
                 <tr *ngFor="let reserva of reservas">
                     <td>{{ reserva.id }}</td>
-                    <td>{{ reserva.person.username }}</td>
+                    <td>{{ reserva.person.nombre }}</td>
                     <td>{{ reserva.espacio.id }}</td>
                     <td>{{ reserva.infoReserva.fechaInicio | date: 'medium' }}</td>
                     <td>{{ reserva.infoReserva.fechaFinal | date: 'medium' }}</td>

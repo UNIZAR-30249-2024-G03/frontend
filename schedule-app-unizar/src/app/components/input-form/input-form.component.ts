@@ -2,14 +2,21 @@ import { Component } from '@angular/core';
 import { PersonService } from '../../services/person.service';
 import { SnackbarService } from '../../services/snackbar.service';
 import { AuthService } from '../../services/auth.service';
+import { User } from '../../models/user';
 
 @Component({
   selector: 'app-input-form',
   templateUrl: './input-form.component.html',
-  styleUrl: './input-form.component.scss',
+  styleUrls: ['./input-form.component.scss'],
 })
 export class InputFormComponent {
-  personId!: number;
+  user: User = {
+    nombre: '',
+    email: '',
+    roles: [],
+    departamento: '',
+  };
+  selectedDepartment: string = 'Informatica_e_Ingenieria_de_sistemas';
 
   constructor(
     private personService: PersonService,
@@ -17,29 +24,20 @@ export class InputFormComponent {
     private authService: AuthService
   ) {}
 
-  submit() {
-    console.log('submit try');
-    this.personService.checkPersonId(this.personId).subscribe(
-      (response) => {
-        let message = '';
-        if (response.type === 'email') {
-          message = 'The person ID is an email address.';
-        } else if (response.type === 'number') {
-          message = 'The person ID is a number.';
-        } else {
-          message = 'The type of person ID could not be determined.';
-        }
-
-        this.snackbarService.createSnackBar('info', message);
-        this.authService.setLoggedInPersonId(this.personId);
+  login() {
+    console.log('login try');
+    this.personService.getUserInfobyEmail(this.user.email).subscribe({
+      next: (data) => {
+        this.authService.setLoggedPersonInfo(data);
+        this.user = data;
       },
-      (error) => {
+      error: (error) => {
         console.error(error);
         this.snackbarService.createSnackBar(
           'error',
           'An error occurred. Please try again later.'
         );
-      }
-    );
+      },
+    });
   }
 }

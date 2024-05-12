@@ -12,8 +12,8 @@ export class ReservaService {
     private http: HttpClient
   ) {}
 
-  getReservas(userId: number): Observable<Reserva[]> {
-    return this.http.get<Reserva[]>(`${this.apiUrl}?idUsuario=${userId}`);
+  getReservas(email: string): Observable<Reserva[]> {
+    return this.http.get<Reserva[]>(`${this.apiUrl}?idUsuario=${email}`);
   }
 
   addReserva(reservaData: Reserva): Observable<Reserva> {

@@ -3,6 +3,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Reserva } from '../../../models/reserva';
 import { ReservaService } from '../../../services/reserva.service';
 import { AuthService } from '../../../services/auth.service';
+import { User } from '../../../models/user';
 
 @Component({
   selector: 'app-make-reservation',
@@ -10,15 +11,14 @@ import { AuthService } from '../../../services/auth.service';
   styleUrls: ['./make-reservation.component.scss'],
 })
 export class MakeReservationComponent {
-  userId!: number;
+  user!: User;
   reservationData: Reserva = {
     id: '',
     person: {
-      id: 0,
-      username: '',
+      nombre: '',
       email: '',
       roles: [],
-      departamentoAdscrito: '',
+      departamento: '',
     },
     espacio: {
       id: this.data.id,
@@ -42,7 +42,7 @@ export class MakeReservationComponent {
     private authService: AuthService,
     private reservaService: ReservaService
   ) {
-    this.userId = this.authService.getLoggedInPersonId();
+    this.user.email = this.authService.getLoggedInPersonEmail();
   }
 
   reserve(): void {

@@ -1,7 +1,6 @@
 export interface User {
-  id: number;
-  username: string;
+  nombre: string;
   email: string;
   roles: string[];
-  departamentoAdscrito: string;
+  departamento: string;
 }

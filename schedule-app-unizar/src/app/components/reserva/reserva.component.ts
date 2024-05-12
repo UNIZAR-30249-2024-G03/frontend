@@ -25,7 +25,7 @@ export class ReservaComponent implements OnInit {
 
   getReservas(): void {
     this.reservaService
-      .getReservas(this.authService.getLoggedInPersonId())
+      .getReservas(this.authService.getLoggedInPersonEmail())
       .subscribe((reservas) => {
         this.reservas = reservas;
       });

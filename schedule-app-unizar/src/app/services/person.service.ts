@@ -7,20 +7,19 @@ import { User } from '../models/user';
   providedIn: 'root',
 })
 export class PersonService {
-  constructor(
-    @Inject('apiUrl') private apiUrl: string,
-    private http: HttpClient
-  ) {}
+  apiUrl = '/api';
+
+  constructor(private http: HttpClient) {}
 
   checkPersonId(personId: number): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/person/checkType`, { personId });
+    return this.http.post<any>(`${this.apiUrl}/personas/`, { personId });
   }
 
-  getUserInfo(id: number): Observable<any> {
-    return this.http.get<User>(this.apiUrl + '/' + id);
+  getUserInfo(email: string): Observable<User> {
+    return this.http.get<User>(this.apiUrl + '/personas/' + email);
   }
 
-  updateUser(user: User, id: number) {
-    return this.http.put<User>(this.apiUrl + '/' + id, user);
+  getUserInfobyEmail(email: string): Observable<User> {
+    return this.http.get<User>(`${this.apiUrl}/personas/${email}`);
   }
 }
