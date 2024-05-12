@@ -23,19 +23,21 @@ export class UserInfoComponent implements OnInit {
     this.getLoggedUserInfo();
   }
 
-  getUserInfo(id: number): void {
-    this.personService.getUserInfo(this.user.email).subscribe(
-      (user) => {
-        this.user = user;
-      },
-      (error) => {
-        console.error('Error fetching user info:', error);
-      }
-    );
+  getUserInfo(): void {
+    this.personService
+      .getUserInfo(this.authService.getLoggedInPersonEmail())
+      .subscribe(
+        (user) => {
+          this.user = user;
+        },
+        (error) => {
+          console.error('Error fetching user info:', error);
+        }
+      );
   }
 
   getLoggedUserInfo(): void {
-    this.authService.getLoggedInPersonEmail();
+    this.user = this.authService.getLoggedPersonInfo();
   }
 
   editUser(): void {

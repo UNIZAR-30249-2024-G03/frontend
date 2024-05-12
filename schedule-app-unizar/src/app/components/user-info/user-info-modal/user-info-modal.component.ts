@@ -24,10 +24,10 @@ export class UserInfoModalComponent {
     private fb: FormBuilder
   ) {
     this.userForm = this.fb.group({
-      username: [data.nombre, [Validators.required, Validators.maxLength(255)]],
+      nombre: [data.nombre, [Validators.required, Validators.maxLength(255)]],
       email: [data.email, [Validators.required, Validators.maxLength(255)]],
       roles: [data.roles, Validators.required],
-      departamentoAdscrito: [data.departamento, Validators.required],
+      departamento: [data.departamento, Validators.required],
     });
   }
 
