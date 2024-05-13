@@ -7,7 +7,7 @@ import { User } from '../models/user';
 export class AuthService {
   private user: User = {
     nombre: 'John Doe',
-    email: 'john.doe@example.com',
+    email: 'gerente@gmail.com',
     roles: ['user'],
     departamento: 'Sales',
   };

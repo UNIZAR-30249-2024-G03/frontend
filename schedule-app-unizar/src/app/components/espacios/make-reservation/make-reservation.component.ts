@@ -3,7 +3,6 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Reserva } from '../../../models/reserva';
 import { ReservaService } from '../../../services/reserva.service';
 import { AuthService } from '../../../services/auth.service';
-import { User } from '../../../models/user';
 
 @Component({
   selector: 'app-make-reservation',
@@ -20,7 +19,7 @@ export class MakeReservationComponent {
   ) {
     const defaultUser = this.authService.getLoggedPersonInfo();
     this.reservationData = {
-      id: defaultUser.email,
+      idUsario: defaultUser.email,
       person: {
         nombre: defaultUser.nombre,
         email: defaultUser.email,
@@ -46,6 +45,10 @@ export class MakeReservationComponent {
   }
 
   reserve(): void {
+    if (this.exceedsMaxCapacity()) {
+      return;
+    }
+
     this.reservaService.addReserva(this.reservationData).subscribe(
       (reserva) => {
         console.log('Reservation successful:', reserva);
@@ -53,6 +56,13 @@ export class MakeReservationComponent {
       (error) => {
         console.error('Reservation error:', error);
       }
+    );
+  }
+
+  exceedsMaxCapacity(): boolean {
+    return (
+      this.reservationData.infoReserva.numMaxPersonas >
+      this.reservationData.espacio.numMaxOcupantes
     );
   }
 }

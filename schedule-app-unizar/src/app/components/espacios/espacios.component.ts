@@ -17,7 +17,7 @@ export class EspaciosComponent implements OnInit {
     'id',
     'tamano',
     'categoriaReserva',
-    'reservable',
+    // 'reservable',
     'horaApertura',
     'horaCierre',
     'porcentajeUsoMaximo',
