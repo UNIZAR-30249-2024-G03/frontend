@@ -5,6 +5,7 @@ import { EspaciosService } from '../../services/espacios.service';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatDialog } from '@angular/material/dialog';
 import { MakeReservationComponent } from './make-reservation/make-reservation.component';
+import { SnackbarService } from '../../services/snackbar.service';
 
 @Component({
   selector: 'app-espacios',
@@ -31,7 +32,8 @@ export class EspaciosComponent implements OnInit {
 
   constructor(
     private espaciosService: EspaciosService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private snackbarService: SnackbarService
   ) {}
 
   ngOnInit(): void {
@@ -74,8 +76,20 @@ export class EspaciosComponent implements OnInit {
       });
 
       dialogRef.afterClosed().subscribe((result) => {
-        console.log('The dialog was closed');
+        if (result) {
+          this.getSuccess('Reservation created successfully.');
+        } else {
+          this.getError('Reservation failed.');
+        }
       });
     });
+  }
+
+  getSuccess(message: string): void {
+    this.snackbarService.createSnackBar('success', message);
+  }
+
+  getError(message: string): void {
+    this.snackbarService.createSnackBar('error', message);
   }
 }

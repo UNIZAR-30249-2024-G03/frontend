@@ -4,6 +4,7 @@ import { ReservaService } from '../../services/reserva.service';
 import { AuthService } from '../../services/auth.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ReservaModalComponent } from './reserva-modal/reserva-modal.component';
+import { SnackbarService } from '../../services/snackbar.service';
 
 @Component({
   selector: 'app-reserva',
@@ -16,7 +17,8 @@ export class ReservaComponent implements OnInit {
   constructor(
     private reservaService: ReservaService,
     private authService: AuthService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private snackbarService: SnackbarService
   ) {}
 
   ngOnInit(): void {
@@ -37,7 +39,10 @@ export class ReservaComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log('The dialog was closed');
+      this.snackbarService.createSnackBar(
+        'success',
+        result || 'Reservation created succesfully.'
+      );
     });
   }
 }

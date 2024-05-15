@@ -21,7 +21,6 @@ export class ReservaService {
   addReserva(reservationData: Reserva): Observable<any> {
     const idUsuario = this.authService.getLoggedInPersonEmail();
 
-    // POST isteği için gerekli verileri gönderelim
     return this.http.post<any>(
       this.apiUrl +
         '/reservas?idUsuario=' +

@@ -18,6 +18,7 @@ export class InputFormComponent {
     departamento: '',
   };
   selectedDepartment: string = 'Informatica_e_Ingenieria_de_sistemas';
+  showSpinner: boolean = false;
 
   constructor(
     private personService: PersonService,
@@ -27,21 +28,27 @@ export class InputFormComponent {
   ) {}
 
   login() {
-    console.log('login try');
+    this.showSpinner = true;
+
     this.personService.getUserInfobyEmail(this.user.email).subscribe({
       next: (data) => {
         this.authService.setLoggedPersonInfo(data);
         this.user = data;
         this.router.navigateByUrl('/map');
-        console.log('Logged user data:' + this.authService.getLoggedPersonInfo()); // todo get user data.
+        this.getSuccess('Login successful.');
       },
       error: (error) => {
         console.error(error);
-        this.snackbarService.createSnackBar(
-          'error',
-          'An error occurred. Please try again later.'
-        );
+        this.getError('An error occurred. Please try again later.');
       },
     });
+  }
+
+  getSuccess(message: string): void {
+    this.snackbarService.createSnackBar('success', message);
+  }
+
+  getError(message: string): void {
+    this.snackbarService.createSnackBar('error', message);
   }
 }

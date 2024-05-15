@@ -1,8 +1,10 @@
 import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Reserva } from '../../../models/reserva';
 import { ReservaService } from '../../../services/reserva.service';
 import { AuthService } from '../../../services/auth.service';
+import { SnackbarService } from '../../../services/snackbar.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-make-reservation',
@@ -11,11 +13,14 @@ import { AuthService } from '../../../services/auth.service';
 })
 export class MakeReservationComponent {
   reservationData: Reserva;
-
+  showSpinner: boolean = false;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private authService: AuthService,
-    private reservaService: ReservaService
+    private reservaService: ReservaService,
+    private dialogRef: MatDialogRef<MakeReservationComponent>,
+    private snackbarService: SnackbarService,
+    private _snackBar: MatSnackBar
   ) {
     const defaultUser = this.authService.getLoggedPersonInfo();
     this.reservationData = {
@@ -45,13 +50,16 @@ export class MakeReservationComponent {
   }
 
   reserve(): void {
+    this.showSpinner = true;
     if (this.exceedsMaxCapacity()) {
       return;
     }
 
     this.reservaService.addReserva(this.reservationData).subscribe(
-      (reserva) => {
-        console.log('Reservation successful:', reserva);
+      (res: any) => {
+        this.showSpinner = true;
+        console.log('Reservation successful:', res);
+        this.getSuccess(res || 'Reservation successful');
       },
       (error) => {
         console.error('Reservation error:', error);
@@ -64,5 +72,18 @@ export class MakeReservationComponent {
       this.reservationData.infoReserva.numMaxPersonas >
       this.reservationData.espacio.numMaxOcupantes
     );
+  }
+
+  getSuccess(message: string): void {
+    this.snackbarService.createSnackBar('success', message);
+
+    this.showSpinner = false;
+    this.dialogRef.close(true);
+  }
+
+  getError(message: string): void {
+    this.snackbarService.createSnackBar('error', message);
+
+    this.showSpinner = false;
   }
 }

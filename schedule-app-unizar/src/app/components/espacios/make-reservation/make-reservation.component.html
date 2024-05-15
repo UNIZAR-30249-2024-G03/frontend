@@ -1,4 +1,10 @@
 <h2 mat-dialog-title>Make Reservation</h2>
+
+<div>
+    <mat-progress-bar mode="query" *ngIf="showSpinner"></mat-progress-bar>
+    <br />
+  </div>
+
 <mat-dialog-content>
     <form #reservationForm="ngForm" (ngSubmit)="reserve()">
         <div class="form-group">

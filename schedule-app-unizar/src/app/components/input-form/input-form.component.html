@@ -1,8 +1,15 @@
 <div class="container">
+    
     <div class="row justify-content-center align-items-center" style="height: 100vh;">
         <div class="col-md-6">
             <div class="card">
                 <div class="card-body">
+
+                    <div>
+                        <mat-progress-bar mode="query" *ngIf="showSpinner"></mat-progress-bar>
+                        <br />
+                      </div>
+                      
                     <h5 class="card-title">E-mail</h5>
                     <div class="form-group">
                         <label for="userEmail">Enter E-mail:</label>
