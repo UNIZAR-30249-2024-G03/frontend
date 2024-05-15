@@ -53,7 +53,14 @@ export class UserInfoModalComponent {
 
   getSuccess(message: string): void {
     this.snackbarService.createSnackBar('success', message);
-    this.personService.getUserInfo(this.authService.getLoggedInPersonEmail());
+
+    const loggedInPersonEmail = this.authService.getLoggedInPersonEmail();
+    if (loggedInPersonEmail) {
+      this.personService.getUserInfo(loggedInPersonEmail);
+    } else {
+      console.error('Logged user email not found.');
+    }
+
     this.showSpinner = false;
     this.dialogRef.close(true);
   }

@@ -21,6 +21,7 @@ import { ReservaModule } from './components/reserva/reserva.module';
 import { EspaciosModule } from './components/espacios/espacios.module';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     EspaciosModule,
     MatSnackBarModule,
     MatProgressBarModule,
+    MatButtonModule,
   ],
   providers: [
     {

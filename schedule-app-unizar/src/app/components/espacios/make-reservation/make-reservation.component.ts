@@ -12,7 +12,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./make-reservation.component.scss'],
 })
 export class MakeReservationComponent {
-  reservationData: Reserva;
+  reservationData!: Reserva;
   showSpinner: boolean = false;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -23,30 +23,36 @@ export class MakeReservationComponent {
     private _snackBar: MatSnackBar
   ) {
     const defaultUser = this.authService.getLoggedPersonInfo();
-    this.reservationData = {
-      idUsario: defaultUser.email,
-      person: {
-        nombre: defaultUser.nombre,
-        email: defaultUser.email,
-        roles: defaultUser.roles,
-        departamento: defaultUser.departamento,
-      },
-      espacio: {
-        id: this.data.id,
-        tamano: this.data.tamano,
-        categoriaReserva: this.data.categoriaReserva,
-        numMaxOcupantes: this.data.capacidadMaxima,
-        planta: 0,
-        reservable: this.data.reservable,
-      },
-      infoReserva: {
-        numMaxPersonas: 0,
-        fechaInicio: '',
-        fechaFinal: '',
-        descripcion: '',
-        tipoUsoReserva: '',
-      },
-    };
+    if (defaultUser) {
+      // Kullanıcı bilgisi null değilse, reservationData'ya ata.
+      this.reservationData = {
+        id: '',
+        idUsario: defaultUser.email,
+        person: {
+          nombre: defaultUser.nombre,
+          email: defaultUser.email,
+          roles: defaultUser.roles,
+          departamento: defaultUser.departamento,
+        },
+        espacio: {
+          id: this.data.id,
+          tamano: this.data.tamano,
+          categoriaReserva: this.data.categoriaReserva,
+          numMaxOcupantes: this.data.capacidadMaxima,
+          planta: 0,
+          reservable: this.data.reservable,
+        },
+        infoReserva: {
+          numMaxPersonas: 0,
+          fechaInicio: '',
+          fechaFinal: '',
+          descripcion: '',
+          tipoUsoReserva: '',
+        },
+      };
+    } else {
+      this.getError('Logged user info not found.');
+    }
   }
 
   reserve(): void {

@@ -16,7 +16,7 @@ export class ReservaComponent implements OnInit {
 
   constructor(
     private reservaService: ReservaService,
-    private authService: AuthService,
+    public authService: AuthService,
     public dialog: MatDialog,
     private snackbarService: SnackbarService
   ) {}
@@ -26,11 +26,24 @@ export class ReservaComponent implements OnInit {
   }
 
   getReservas(): void {
-    this.reservaService
-      .getReservas(this.authService.getLoggedInPersonEmail())
-      .subscribe((reservas) => {
+    const loggedUser = this.authService.getLoggedPersonInfo();
+    if (loggedUser) {
+      const userEmail = loggedUser.email;
+      this.reservaService.getReservas(userEmail).subscribe((reservas) => {
         this.reservas = reservas;
+        console.log('Reservas:', this.reservas);
       });
+    } else {
+      this.getError('Logged user info not found.');
+    }
+  }
+
+  getSuccess(message: string): void {
+    this.snackbarService.createSnackBar('success', message);
+  }
+
+  getError(message: string): void {
+    this.snackbarService.createSnackBar('error', message);
   }
 
   openDialog(): void {
@@ -39,10 +52,15 @@ export class ReservaComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      this.snackbarService.createSnackBar(
-        'success',
-        result || 'Reservation created succesfully.'
-      );
+      if (result) {
+        this.getSuccess('Reservation created successfully.');
+      } else {
+        this.getError('Reservation failed.');
+      }
     });
+  }
+
+  navigateToMap(): void {
+    window.location.href = '/map';
   }
 }

@@ -1,5 +1,11 @@
 <h2 mat-dialog-title>Edit User Information</h2>
 
+<div>
+    <mat-progress-bar mode="query" *ngIf="showSpinner"></mat-progress-bar>
+    <br />
+</div>
+
+
 <form [formGroup]="userForm" (ngSubmit)="submitEditUser()">
 
     <mat-dialog-content class="mat-typography">

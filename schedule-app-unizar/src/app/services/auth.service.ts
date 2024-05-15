@@ -5,24 +5,35 @@ import { User } from '../models/user';
   providedIn: 'root',
 })
 export class AuthService {
-  private user: User = {
-    nombre: 'John Doe',
-    email: 'gerente@gmail.com',
-    roles: ['user'],
-    departamento: 'Sales',
-  };
+  private user: User | null = null;
+  isLoggedIn: boolean = false;
+  
 
   constructor() {}
 
-  setLoggedPersonInfo(user: User): void {
+  setUserLoggedIn(user: User): void {
     this.user = user;
   }
 
-  getLoggedPersonInfo(): User {
+  isUserLoggedIn(): boolean {
+    return this.user !== null;
+  }
+
+  logout(): void {
+    this.user = null;
+  }
+
+  getLoggedPersonInfo(): User | null {
     return this.user;
   }
 
-  getLoggedInPersonEmail(): string {
-    return this.user.email;
+  getLoggedInPersonEmail(): string | null {
+    return this.user ? this.user.email : null;
+  }
+
+  setLoggedInPersonEmail(mail: string) {
+    if (this.user) {
+      this.user.email = mail;
+    }
   }
 }

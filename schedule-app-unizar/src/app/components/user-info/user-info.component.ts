@@ -11,7 +11,6 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./user-info.component.scss'],
 })
 export class UserInfoComponent implements OnInit {
-  user!: User;
 
   constructor(
     private personService: PersonService,
@@ -19,14 +18,16 @@ export class UserInfoComponent implements OnInit {
     public dialog: MatDialog
   ) {}
 
+  user=this.authService.getLoggedPersonInfo();
+
   ngOnInit(): void {
     this.getLoggedUserInfo();
   }
 
   getUserInfo(): void {
-    this.personService
-      .getUserInfo(this.authService.getLoggedInPersonEmail())
-      .subscribe(
+    const userEmail = this.authService.getLoggedInPersonEmail();
+    if (userEmail) {
+      this.personService.getUserInfo(userEmail).subscribe(
         (user) => {
           this.user = user;
         },
@@ -34,10 +35,18 @@ export class UserInfoComponent implements OnInit {
           console.error('Error fetching user info:', error);
         }
       );
+    } else {
+      console.error('Logged user email not found.');
+    }
   }
 
   getLoggedUserInfo(): void {
-    this.user = this.authService.getLoggedPersonInfo();
+    const loggedUser = this.authService.getLoggedPersonInfo();
+    if (loggedUser) {
+      this.user = loggedUser;
+    } else {
+      console.error('Logged user info not found.');
+    }
   }
 
   editUser(): void {

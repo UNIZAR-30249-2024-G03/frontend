@@ -102,13 +102,14 @@ export class ReservaModalComponent implements OnInit {
 
   getSuccess(message: string): void {
     this.snackbarService.createSnackBar('success', message);
-    this.reservaService.getReservas(this.authService.getLoggedInPersonEmail());
+
     this.showSpinner = false;
     this.dialogRef.close(true);
   }
 
   getError(message: string): void {
     this.snackbarService.createSnackBar('error', message);
+
     this.showSpinner = false;
   }
 }

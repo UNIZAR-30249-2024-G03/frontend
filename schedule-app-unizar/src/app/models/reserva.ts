@@ -2,6 +2,7 @@ import { Espacio } from './espacio';
 import { User } from './user';
 
 export interface Reserva {
+  id: string;
   idUsario: string;
   person: User;
   espacio: Espacio;

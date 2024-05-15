@@ -32,8 +32,10 @@ export class InputFormComponent {
 
     this.personService.getUserInfobyEmail(this.user.email).subscribe({
       next: (data) => {
-        this.authService.setLoggedPersonInfo(data);
+        this.authService.setUserLoggedIn(data);
+        this.authService.setLoggedInPersonEmail(this.user.email)
         this.user = data;
+        this.authService.isLoggedIn = true;
         this.router.navigateByUrl('/map');
         this.getSuccess('Login successful.');
       },

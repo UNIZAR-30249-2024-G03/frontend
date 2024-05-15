@@ -4,15 +4,17 @@ import { InputFormComponent } from './components/input-form/input-form.component
 import { UserInfoComponent } from './components/user-info/user-info.component';
 import { ReservaComponent } from './components/reserva/reserva.component';
 import { MapComponent } from './components/map/map.component';
+import { AuthGuardService } from './services/auth-guard.service';
 
 const routes: Routes = [
   {
-    path: 'input-form',
+    path: '',
     component: InputFormComponent,
   },
   {
     path: 'user-info',
     component: UserInfoComponent,
+    canActivate: [AuthGuardService],
     loadChildren: () =>
       import('./components/user-info/user-info.module').then(
         (m) => m.UserInfoModule
@@ -21,6 +23,7 @@ const routes: Routes = [
   {
     path: 'reserva',
     component: ReservaComponent,
+    canActivate: [AuthGuardService],
     loadChildren: () =>
       import('./components/reserva/reserva.module').then(
         (m) => m.ReservaModule
@@ -29,18 +32,19 @@ const routes: Routes = [
   {
     path: 'map',
     component: MapComponent,
+    canActivate: [AuthGuardService],
     loadChildren: () =>
       import('./components/map/map.module').then((m) => m.MapModule),
   },
   {
-    path: '',
+    path: 'espacios',
     loadChildren: () =>
       import('./components/espacios/espacios.module').then(
         (m) => m.EspaciosModule
       ),
   },
   {
-    path: '',
+    path: 'reservation',
     loadChildren: () =>
       import(
         './components/espacios/make-reservation/make-reservation.module'
