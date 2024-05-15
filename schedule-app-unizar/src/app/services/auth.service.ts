@@ -1,5 +1,6 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { User } from '../models/user';
+import { DOCUMENT } from '@angular/common';
 
 @Injectable({
   providedIn: 'root',
@@ -7,12 +8,14 @@ import { User } from '../models/user';
 export class AuthService {
   private user: User | null = null;
   isLoggedIn: boolean = false;
-  
 
-  constructor() {}
+  constructor(@Inject(DOCUMENT) private document: Document) {
+    this.loadUserFromLocalStorage();
+  }
 
   setUserLoggedIn(user: User): void {
     this.user = user;
+    this.saveUserToLocalStorage();
   }
 
   isUserLoggedIn(): boolean {
@@ -21,6 +24,7 @@ export class AuthService {
 
   logout(): void {
     this.user = null;
+    this.removeUserFromLocalStorage();
   }
 
   getLoggedPersonInfo(): User | null {
@@ -34,6 +38,31 @@ export class AuthService {
   setLoggedInPersonEmail(mail: string) {
     if (this.user) {
       this.user.email = mail;
+      this.saveUserToLocalStorage();
+    }
+  }
+
+  private loadUserFromLocalStorage() {
+    const localStorage = this.document.defaultView?.localStorage;
+    if (localStorage) {
+      const storedUser = localStorage.getItem('currentUser');
+      if (storedUser) {
+        this.user = JSON.parse(storedUser);
+      }
+    }
+  }
+
+  private saveUserToLocalStorage() {
+    const localStorage = this.document.defaultView?.localStorage;
+    if (localStorage) {
+      localStorage.setItem('currentUser', JSON.stringify(this.user));
+    }
+  }
+
+  private removeUserFromLocalStorage() {
+    const localStorage = this.document.defaultView?.localStorage;
+    if (localStorage) {
+      localStorage.removeItem('currentUser');
     }
   }
 }
