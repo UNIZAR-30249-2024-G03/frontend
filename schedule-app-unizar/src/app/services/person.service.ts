@@ -20,6 +20,6 @@ export class PersonService {
   }
 
   getUserInfobyEmail(email: string): Observable<User> {
-    return this.http.get<User>(`${this.apiUrl}/personas/${email}`);
+    return this.http.get<User>(`${this.apiUrl}/personas?email=${email}`);
   }
 }

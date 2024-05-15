@@ -3,6 +3,7 @@ import { PersonService } from '../../services/person.service';
 import { SnackbarService } from '../../services/snackbar.service';
 import { AuthService } from '../../services/auth.service';
 import { User } from '../../models/user';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-input-form',
@@ -21,7 +22,8 @@ export class InputFormComponent {
   constructor(
     private personService: PersonService,
     private snackbarService: SnackbarService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {}
 
   login() {
@@ -30,6 +32,8 @@ export class InputFormComponent {
       next: (data) => {
         this.authService.setLoggedPersonInfo(data);
         this.user = data;
+        this.router.navigateByUrl('/map');
+        console.log('Logged user data:' + this.authService.getLoggedPersonInfo()); // todo get user data.
       },
       error: (error) => {
         console.error(error);
