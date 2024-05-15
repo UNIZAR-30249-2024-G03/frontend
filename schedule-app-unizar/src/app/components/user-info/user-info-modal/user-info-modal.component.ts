@@ -24,10 +24,10 @@ export class UserInfoModalComponent {
     private fb: FormBuilder
   ) {
     this.userForm = this.fb.group({
-      username: [data.nombre, [Validators.required, Validators.maxLength(255)]],
+      nombre: [data.nombre, [Validators.required, Validators.maxLength(255)]],
       email: [data.email, [Validators.required, Validators.maxLength(255)]],
       roles: [data.roles, Validators.required],
-      departamentoAdscrito: [data.departamento, Validators.required],
+      departamento: [data.departamento, Validators.required],
     });
   }
 
@@ -53,7 +53,14 @@ export class UserInfoModalComponent {
 
   getSuccess(message: string): void {
     this.snackbarService.createSnackBar('success', message);
-    this.personService.getUserInfo(this.authService.getLoggedInPersonEmail());
+
+    const loggedInPersonEmail = this.authService.getLoggedInPersonEmail();
+    if (loggedInPersonEmail) {
+      this.personService.getUserInfo(loggedInPersonEmail);
+    } else {
+      console.error('Logged user email not found.');
+    }
+
     this.showSpinner = false;
     this.dialogRef.close(true);
   }

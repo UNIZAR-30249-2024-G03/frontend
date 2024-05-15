@@ -19,6 +19,9 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MapModule } from './components/map/map.module';
 import { ReservaModule } from './components/reserva/reserva.module';
 import { EspaciosModule } from './components/espacios/espacios.module';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -39,6 +42,9 @@ import { EspaciosModule } from './components/espacios/espacios.module';
     MapModule,
     ReservaModule,
     EspaciosModule,
+    MatSnackBarModule,
+    MatProgressBarModule,
+    MatButtonModule,
   ],
   providers: [
     {

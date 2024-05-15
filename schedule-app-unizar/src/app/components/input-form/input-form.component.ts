@@ -3,6 +3,7 @@ import { PersonService } from '../../services/person.service';
 import { SnackbarService } from '../../services/snackbar.service';
 import { AuthService } from '../../services/auth.service';
 import { User } from '../../models/user';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-input-form',
@@ -17,27 +18,39 @@ export class InputFormComponent {
     departamento: '',
   };
   selectedDepartment: string = 'Informatica_e_Ingenieria_de_sistemas';
+  showSpinner: boolean = false;
 
   constructor(
     private personService: PersonService,
     private snackbarService: SnackbarService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {}
 
   login() {
-    console.log('login try');
+    this.showSpinner = true;
+
     this.personService.getUserInfobyEmail(this.user.email).subscribe({
       next: (data) => {
-        this.authService.setLoggedPersonInfo(data);
+        this.authService.setUserLoggedIn(data);
+        this.authService.setLoggedInPersonEmail(this.user.email)
         this.user = data;
+        this.authService.isLoggedIn = true;
+        this.router.navigateByUrl('/map');
+        this.getSuccess('Login successful.');
       },
       error: (error) => {
         console.error(error);
-        this.snackbarService.createSnackBar(
-          'error',
-          'An error occurred. Please try again later.'
-        );
+        this.getError('An error occurred. Please try again later.');
       },
     });
+  }
+
+  getSuccess(message: string): void {
+    this.snackbarService.createSnackBar('success', message);
+  }
+
+  getError(message: string): void {
+    this.snackbarService.createSnackBar('error', message);
   }
 }

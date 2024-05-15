@@ -4,6 +4,7 @@ import { ReservaService } from '../../services/reserva.service';
 import { AuthService } from '../../services/auth.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ReservaModalComponent } from './reserva-modal/reserva-modal.component';
+import { SnackbarService } from '../../services/snackbar.service';
 
 @Component({
   selector: 'app-reserva',
@@ -15,8 +16,9 @@ export class ReservaComponent implements OnInit {
 
   constructor(
     private reservaService: ReservaService,
-    private authService: AuthService,
-    public dialog: MatDialog
+    public authService: AuthService,
+    public dialog: MatDialog,
+    private snackbarService: SnackbarService
   ) {}
 
   ngOnInit(): void {
@@ -24,11 +26,24 @@ export class ReservaComponent implements OnInit {
   }
 
   getReservas(): void {
-    this.reservaService
-      .getReservas(this.authService.getLoggedInPersonEmail())
-      .subscribe((reservas) => {
+    const loggedUser = this.authService.getLoggedPersonInfo();
+    if (loggedUser) {
+      const userEmail = loggedUser.email;
+      this.reservaService.getReservas(userEmail).subscribe((reservas) => {
         this.reservas = reservas;
+        console.log('Reservas:', this.reservas);
       });
+    } else {
+      this.getError('Logged user info not found.');
+    }
+  }
+
+  getSuccess(message: string): void {
+    this.snackbarService.createSnackBar('success', message);
+  }
+
+  getError(message: string): void {
+    this.snackbarService.createSnackBar('error', message);
   }
 
   openDialog(): void {
@@ -37,7 +52,15 @@ export class ReservaComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log('The dialog was closed');
+      if (result) {
+        this.getSuccess('Reservation created successfully.');
+      } else {
+        this.getError('Reservation failed.');
+      }
     });
+  }
+
+  navigateToMap(): void {
+    window.location.href = '/map';
   }
 }

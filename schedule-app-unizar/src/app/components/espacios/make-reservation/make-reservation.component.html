@@ -1,4 +1,10 @@
 <h2 mat-dialog-title>Make Reservation</h2>
+
+<div>
+    <mat-progress-bar mode="query" *ngIf="showSpinner"></mat-progress-bar>
+    <br />
+  </div>
+
 <mat-dialog-content>
     <form #reservationForm="ngForm" (ngSubmit)="reserve()">
         <div class="form-group">
@@ -16,6 +22,9 @@
             <label for="numMaxPersonas">Max Number of Persons:</label>
             <input type="number" class="form-control" id="numMaxPersonas" name="numMaxPersonas"
                 [(ngModel)]="reservationData.infoReserva.numMaxPersonas" required>
+            <div *ngIf="exceedsMaxCapacity()" class="mt-2 alert alert-danger">
+                The number of persons exceeds the maximum capacity of the space.
+            </div>
         </div>
         <div class="form-group">
             <label for="fechaInicio">Start Date:</label>

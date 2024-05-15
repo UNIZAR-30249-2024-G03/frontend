@@ -70,21 +70,25 @@ export class ReservaModalComponent implements OnInit {
 
   updateReserva(): void {
     this.showSpinner = true;
-    this.reservaService.updateReserva(this.reservationForm.value).subscribe(
-      (res: any) => {
-        this.getSuccess(res || 'Reservation updated successfully.');
-      },
-      (err: any) => {
-        this.getError(
-          err.message || 'An error occurred while updating the reservation.'
-        );
-      }
-    );
+    const reservationId = this.reservationForm.value.id;
+    this.reservaService
+      .updateReserva(reservationId, this.reservationForm.value)
+      .subscribe(
+        (res: any) => {
+          this.getSuccess(res || 'Reservation updated successfully.');
+        },
+        (err: any) => {
+          this.getError(
+            err.message || 'An error occurred while updating the reservation.'
+          );
+        }
+      );
   }
 
   deleteReserva(): void {
     this.showSpinner = true;
-    this.reservaService.deleteReserva(this.reservationForm.value.id).subscribe(
+    const reservationId = this.reservationForm.value.id;
+    this.reservaService.deleteReserva(reservationId).subscribe(
       (res: any) => {
         this.getSuccess(res || 'Reservation deleted successfully.');
       },
@@ -98,13 +102,14 @@ export class ReservaModalComponent implements OnInit {
 
   getSuccess(message: string): void {
     this.snackbarService.createSnackBar('success', message);
-    this.reservaService.getReservas(this.authService.getLoggedInPersonEmail());
+
     this.showSpinner = false;
     this.dialogRef.close(true);
   }
 
   getError(message: string): void {
     this.snackbarService.createSnackBar('error', message);
+
     this.showSpinner = false;
   }
 }
