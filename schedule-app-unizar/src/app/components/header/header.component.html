@@ -1,0 +1,26 @@
+<header class="header">
+    <div class="header__logo">
+        <span class="header__title">Schedule App Unizar</span>
+    </div>
+    <nav class="header__nav">
+        <ul class="header__menu">
+            <li class="header__menu-item">
+                <a routerLink="/map" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
+                    *ngIf="isLoggedIn">Home</a>
+            </li>
+            <li class="header__menu-item" *ngIf="!isLoggedIn">
+                <a routerLink="/" routerLinkActive="active">Login</a>
+            </li>
+            <li class="header__menu-item" *ngIf="isLoggedIn">
+                <a routerLink="/user-info" routerLinkActive="active">User Info</a>
+            </li>
+            <li class="header__menu-item" *ngIf="isLoggedIn">
+                <a routerLink="/reserva" routerLinkActive="active">Reservations</a>
+            </li>
+            <li class="header__menu-item" *ngIf="isLoggedIn">
+                <button mat-flat-button color="primary" style="margin-left: 16px;" (click)="logout()">Logout</button>
+                <!-- <button class="btn-btn" (click)="logout()">Logout</button> -->
+            </li>
+        </ul>
+    </nav>
+</header>

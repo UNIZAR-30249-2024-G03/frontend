@@ -1,0 +1,35 @@
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+
+.mat-mdc-snack-bar-container {
+
+    color: white;
+
+    &.success {
+        .mat-mdc-snack-bar-label {
+            background-color: #198754;
+        }
+
+        .mdc-snackbar__surface {
+            background-color: #198754;
+        }
+    }
+
+    &.error {
+        .mat-mdc-snack-bar-label {
+            background-color: #dc3545;
+        }
+
+        .mdc-snackbar__surface {
+            background-color: #dc3545;
+        }
+    }
+}

@@ -1,0 +1,113 @@
+<div class="container mt-4 table-container">
+    <div class="filter">
+        <div class="row">
+            <div class="col-md-3">
+                <label for="id">Id:</label>
+                <input type="text" id="id" name="id" class="form-control" [(ngModel)]="filter.id">
+            </div>
+            <div class="col-md-3">
+                <label for="planta">Floor:</label>
+                <select id="planta" name="planta" class="form-control" [(ngModel)]="filter.planta">
+                    <option value="">All</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label for="numMaxOcupantes">Max occupants:</label>
+                <input type="number" id="numMaxOcupantes" name="numMaxOcupantes" class="form-control"
+                    [(ngModel)]="filter.numMaxOcupantes">
+            </div>
+            <div class="col-md-3">
+                <label for="categoriaReserva">User type:</label>
+                <select id="categoriaReserva" name="categoriaReserva" class="form-control"
+                    [(ngModel)]="filter.categoriaReserva">
+                    <option value="">All</option>
+                    <option value="AULA">AULA</option>
+                    <option value="SEMINARIO">SEMINARIO</option>
+                    <option value="LABORATORIO">LABORATORIO</option>
+                    <option value="DESPACHO">DESPACHO</option>
+                    <option value="SALA_COMUN">SALA_COMUN</option>
+                </select>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-md-12 text-center">
+                <button class="btn btn-info filter-button col-md-3" (click)="applyFilters()">Filter</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-4 table-container" style="padding-top: 15px;">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+        <!-- Id Column -->
+        <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef> Id </th>
+            <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+        </ng-container>
+
+        <!-- Tamaño Column -->
+        <ng-container matColumnDef="tamano">
+            <th mat-header-cell *matHeaderCellDef> Tamaño </th>
+            <td mat-cell *matCellDef="let element"> {{element.tamano}} </td>
+        </ng-container>
+
+        <!-- CategoriaReserva Column -->
+        <ng-container matColumnDef="categoriaReserva">
+            <th mat-header-cell *matHeaderCellDef> Categoria de Reserva </th>
+            <td mat-cell *matCellDef="let element"> {{element.categoriaReserva}} </td>
+        </ng-container>
+
+        <!-- Reservable Column -->
+        <!-- <ng-container matColumnDef="reservable">
+            <th mat-header-cell *matHeaderCellDef> Reservable </th>
+            <td mat-cell *matCellDef="let element"> {{element.reservable}} </td>
+        </ng-container> -->
+
+        <!-- HoraApertura Column -->
+        <ng-container matColumnDef="horaApertura">
+            <th mat-header-cell *matHeaderCellDef> Hora de Apertura </th>
+            <td mat-cell *matCellDef="let element"> {{element.horario.horaApertura}} </td>
+        </ng-container>
+
+        <!-- HoraCierre Column -->
+        <ng-container matColumnDef="horaCierre">
+            <th mat-header-cell *matHeaderCellDef> Hora de Cierre </th>
+            <td mat-cell *matCellDef="let element"> {{element.horario.horaCierre}} </td>
+        </ng-container>
+
+        <!-- PorcentajeUsoMaximo Column -->
+        <ng-container matColumnDef="porcentajeUsoMaximo">
+            <th mat-header-cell *matHeaderCellDef> Porcentaje de Uso Máximo </th>
+            <td mat-cell *matCellDef="let element"> {{element.porcentajeUsoMaximo}} </td>
+        </ng-container>
+
+        <!-- CapacidadMaxima Column -->
+        <ng-container matColumnDef="capacidadMaxima">
+            <th mat-header-cell *matHeaderCellDef> Capacidad Máxima </th>
+            <td mat-cell *matCellDef="let element"> {{element.capacidadMaxima}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="select">
+            <th mat-header-cell *matHeaderCellDef>
+                <mat-checkbox (change)="masterToggle()" [checked]="isAllSelected()"
+                    [indeterminate]="selection.hasValue() && !isAllSelected()"></mat-checkbox>
+            </th>
+            <td mat-cell *matCellDef="let row">
+                <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
+                    [checked]="selection.isSelected(row)"></mat-checkbox>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+</div>
+
+<ng-container *ngIf="selection.selected.length > 0">
+    <div class="container mt-4">
+        <button class="btn btn-primary" (click)="openDialog()">Make Reservation</button>
+    </div>
+</ng-container>
