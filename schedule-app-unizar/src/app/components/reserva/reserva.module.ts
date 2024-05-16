@@ -10,6 +10,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatTableModule } from '@angular/material/table';
 
 import { ReservaComponent } from './reserva.component';
 import { ReservaModalComponent } from './reserva-modal/reserva-modal.component';
@@ -29,6 +30,7 @@ import { ReservaModalComponent } from './reserva-modal/reserva-modal.component';
     MatCardModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatTableModule,
   ],
 })
 export class ReservaModule {}
