@@ -24,7 +24,6 @@ export class MakeReservationComponent {
   ) {
     const defaultUser = this.authService.getLoggedPersonInfo();
     if (defaultUser) {
-      // Kullanıcı bilgisi null değilse, reservationData'ya ata.
       this.reservationData = {
         id: '',
         idUsario: defaultUser.email,
