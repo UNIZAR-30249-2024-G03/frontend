@@ -5,6 +5,7 @@ import { AuthService } from '../../services/auth.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ReservaModalComponent } from './reserva-modal/reserva-modal.component';
 import { SnackbarService } from '../../services/snackbar.service';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-reserva',
@@ -12,7 +13,15 @@ import { SnackbarService } from '../../services/snackbar.service';
   styleUrl: './reserva.component.scss',
 })
 export class ReservaComponent implements OnInit {
-  reservas: Reserva[] = [];
+  reservas = new MatTableDataSource<Reserva>();
+  displayedColumns: string[] = [
+    'reserva',
+    'personName',
+    'spaceId',
+    'startDate',
+    'endDate',
+    'description',
+  ];
 
   constructor(
     private reservaService: ReservaService,
@@ -30,7 +39,7 @@ export class ReservaComponent implements OnInit {
     if (loggedUser) {
       const userEmail = loggedUser.email;
       this.reservaService.getReservas(userEmail).subscribe((reservas) => {
-        this.reservas = reservas;
+        this.reservas.data = reservas;
         console.log('Reservas:', this.reservas);
       });
     } else {
